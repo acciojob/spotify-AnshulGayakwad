@@ -60,7 +60,7 @@ public class SpotifyRepository {
             }
         }
         if(!isPresent){
-            createArtist(artistName);
+            artist = createArtist(artistName);
         }
         Album album = new Album(title);
         albums.add(album);
@@ -87,7 +87,8 @@ public class SpotifyRepository {
         Song song = new Song(title, length);
         songs.add(song);
         List<Song> list = albumSongMap.getOrDefault(refAlbum, new ArrayList<>());
-
+        list.add(song);
+        albumSongMap.put(refAlbum, list);
         return song;
     }
 
@@ -178,9 +179,7 @@ public class SpotifyRepository {
         if(!isPlayListPresent){
             throw new Exception("Playlist does not exist");
         }
-//        public HashMap<Playlist, List<User>> playlistListenerMap;
-//        public HashMap<User, Playlist> creatorPlaylistMap;
-//        public HashMap<User, List<Playlist>> userPlaylistMap;
+//
         boolean isPresentUserr = false;
         User user = new User();
         for(User user1 : users){
